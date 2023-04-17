@@ -203,7 +203,6 @@ You entered an incorrect choice. Try again.
 4. Exit from the program
 
 Enter a choice from 1 to 4: 4
-$
 ```
 
 # What to turn in?
