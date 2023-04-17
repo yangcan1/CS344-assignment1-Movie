@@ -105,7 +105,7 @@ If the user choose this option, the program should exit.
 # Sample Program Execution
 Here is a complete example of executing the assignment with the provided sample CSV file.
 
-`$ ./movies movies_sample_1.csv 
+```$ ./movies movies_sample_1.csv 
 Processed file movies_sample_1.csv and parsed data for 24 movies
 
 1. Show movies released in the specified year
@@ -202,4 +202,4 @@ You entered an incorrect choice. Try again.
 4. Exit from the program
 
 Enter a choice from 1 to 4: 4
-$`
+$```
