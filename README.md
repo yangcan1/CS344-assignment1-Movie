@@ -105,7 +105,8 @@ If the user choose this option, the program should exit.
 # Sample Program Execution
 Here is a complete example of executing the assignment with the provided sample CSV file.
 
-```$ ./movies movies_sample_1.csv 
+```
+$ ./movies movies_sample_1.csv 
 Processed file movies_sample_1.csv and parsed data for 24 movies
 
 1. Show movies released in the specified year
@@ -202,4 +203,15 @@ You entered an incorrect choice. Try again.
 4. Exit from the program
 
 Enter a choice from 1 to 4: 4
-$```
+$
+```
+
+# What to turn in?
+You can only use C for coding this assignment and you must use the gcc compiler.
+You can use C99 or GNU99 standard or the default standard used by the gcc installation on os1.
+Your assignment will be graded on os1.
+Submit a single zip file with all your code, which can be in as many different files as you want.
+This zip file must be named youronid_program1.zip where youronid should be replaced by your own ONID.
+E.g., if chaudhrn was submitting the assignment, the file must be named chaudhrn_program1.zip.
+In the zip file, you must include a text file called README.txt that contains instructions on how to compile your code using gcc to create an executable file that must be named movies.
+When you resubmit a file in Canvas, Canvas can attach a suffix to the file, e.g., the file name may become chaudhrn_program1-1.zip. Don't worry about this name change as no points will be deducted because of this.
