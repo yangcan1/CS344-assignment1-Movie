@@ -1,6 +1,6 @@
 # CS344-Assignment1
 
-Here is a sample file whose format corresponds to the format of the CSV file your program will be tested with.
+###Here is a sample file whose format corresponds to the format of the CSV file your program will be tested with.
 
 The first line in the input file will always be the header line containing the column headers (i.e., it will not have data for a movie).
 All the other lines will have the data for a movie in valid format and no columns will be missing.
