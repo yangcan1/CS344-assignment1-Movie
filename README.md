@@ -1,11 +1,11 @@
 # OSU-CS344-Assgn1-Movies instruction
 
 This is a program that:
-Reads a CSV file with movie data that is provided to the program as an argument
-Processes the data in the file to create structs to hold data for each movie
-Creates a linked list of all these structs
-Gives user choices to ask questions about the movies in the data
-Prints out the data about the movies per user choice
+* Reads a CSV file with movie data that is provided to the program as an argument
+* Processes the data in the file to create structs to hold data for each movie
+* Creates a linked list of all these structs
+* Gives user choices to ask questions about the movies in the data
+* Prints out the data about the movies per user choice
 
 ## Process the input file
 When your program starts it must read all data from the file and process it. After processing the file, the program must print the following message to stdout
@@ -206,11 +206,11 @@ Enter a choice from 1 to 4: 4
 ```
 
 # What to turn in?
-You can only use C for coding this assignment and you must use the gcc compiler.
-You can use C99 or GNU99 standard or the default standard used by the gcc installation on os1.
-Your assignment will be graded on os1.
-Submit a single zip file with all your code, which can be in as many different files as you want.
-This zip file must be named youronid_program1.zip where youronid should be replaced by your own ONID.
+* You can only use C for coding this assignment and you must use the gcc compiler.
+* You can use C99 or GNU99 standard or the default standard used by the gcc installation on os1.
+* Your assignment will be graded on os1.
+* Submit a single zip file with all your code, which can be in as many different files as you want.
+* This zip file must be named youronid_program1.zip where youronid should be replaced by your own ONID.
 E.g., if chaudhrn was submitting the assignment, the file must be named chaudhrn_program1.zip.
-In the zip file, you must include a text file called README.txt that contains instructions on how to compile your code using gcc to create an executable file that must be named movies.
-When you resubmit a file in Canvas, Canvas can attach a suffix to the file, e.g., the file name may become chaudhrn_program1-1.zip. Don't worry about this name change as no points will be deducted because of this.
+* In the zip file, you must include a text file called README.txt that contains instructions on how to compile your code using gcc to create an executable file that must be named movies.
+
