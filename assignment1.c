@@ -17,7 +17,7 @@ struct movies *createMovies(char* currline) {
     char *saveptr;
 
     // The first token is the title
-    char *token = strtok_r(currline, ", ", &saveptr);
+    char *token = strtok_r(currline, ",", &saveptr);
     currMovie->title = calloc(strlen(token) + 1, sizeof(char));
     strcpy(currMovie->title, token);
 
@@ -56,7 +56,7 @@ struct movies* processFile(char* filename) {
     getline(&currline, &len, fptr);
     while ((nread = getline(&currline, &len, fptr)) != -1)
     {
-        printf("%s", currline);
+        // printf("%s", currline);
         // Get a new movie node corresponding to the current line
         struct movies *newNode = createMovies(currline);
         if (head == NULL)
@@ -79,30 +79,72 @@ struct movies* processFile(char* filename) {
     return head;
 }
 
+void printmovie(struct movies* list) {
+    int num = 0;
+    while (list != NULL) {
+        num++;
+        list = list->next;
+    }
+    printf("Processed file movies_sample_1.csv and parsed data for %d movies\n", num);
+}
+void printmessg() {
+    printf("\n\n1. Show movies released in the specified year\n2. Show highest rated movie for each year\n3. Show the title and year of release of all movies in a specific language\n4. Exit from the program\n\nEnter a choice from 1 to 4: ");
+}
+
+void DoIt(int choice, struct movies* list) {
+    int year, button = 0;
+    if (choice == 1) {
+        printf("Enter the year for which you want to see movies: ");
+        scanf("%d", &year);
+        while (list != NULL) {
+            if (atoi(list->year) == year) {
+                printf("\n%s",list->title);
+                button = 1;
+            }
+            list = list->next;
+        }
+        if (button == 0) {
+            printf("No data about movies released in the year %d\n", year);
+        }
+        
+    } else if (choice == 2) { // Create an array of index 0 - 121, the content is the rate.
+        float arr[122] = {-1};
+        char* titleName[122];
+        while (list != NULL) {
+            if (atof(list->rate) >= arr[atoi(list->year) - 1900]) {
+                arr[atoi(list->year) - 1900] = atof(list->rate);
+                titleName[atoi(list->year)] = list->title;
+            }
+            list = list->next;
+        }
+        for (int i = 0; i < 122; i++) {
+            if (arr[i] > 0) {
+                printf("%d %.1f %s\n", (1900 + i), arr[i], titleName[i]);
+            }
+        }
+    }
+}
+
 int main(int argc, char *argv[]) {
+    int choice;
     if (argc < 2) {
         printf("Provide the name of the file!\n");
     }
     struct movies *list = processFile(argv[1]);
-    
+    printmovie(list);
+    printmessg();
+    scanf("%d", &choice);
+    while (choice < 1 || choice > 4) {
+        fprintf(stderr, "Wrong input, please enter again\nEnter a choice from 1 to 4: ");
+        scanf("%d", &choice);
+    }
+    while (choice != 4) {
+        DoIt(choice, list);
+        printmessg();
+        scanf("%d", &choice);
+    }
+
     return 0;
 }
 
 
-// int main (void) {
-//     FILE *fptr = fopen("movies_sample_1.csv", "r");
-//     if (fptr == NULL) {
-//         perror("unable to open file!");
-//         exit(1);
-//     }
-
-//     char* line = NULL;
-//     ssize_t* len = 0;
-
-//     getline(&line, &len, fptr);
-//     while (getline(&line, &len, fptr) != -1) {
-//         fputs(line, stdout);
-//         fputs("|*\n", stdout);
-//     }
-//     return 0;
-// }
