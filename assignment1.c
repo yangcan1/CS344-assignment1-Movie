@@ -36,7 +36,7 @@ struct movies *createMovies(char* currline) {
     currMovie->rate = calloc(strlen(token) + 1, sizeof(char));
     strcpy(currMovie->rate, token);
 
-    // Set the next node to NULL in the newly created student entry
+    // Set the next node to NULL in the newly created movie entry
     currMovie->next = NULL;
 
     return currMovie;
@@ -52,8 +52,11 @@ struct movies* processFile(char* filename) {
 
     struct movies *head = NULL;
     struct movies *tail = NULL;
-    while ((nread = getline(&currline, &len, filename)) != -1)
+
+    getline(&currline, &len, fptr);
+    while ((nread = getline(&currline, &len, fptr)) != -1)
     {
+        printf("%s", currline);
         // Get a new movie node corresponding to the current line
         struct movies *newNode = createMovies(currline);
         if (head == NULL)
@@ -72,7 +75,7 @@ struct movies* processFile(char* filename) {
         }
     }
     free(currline);
-    fclose(filename);
+    fclose(fptr);
     return head;
 }
 
@@ -86,17 +89,20 @@ int main(int argc, char *argv[]) {
 }
 
 
-// char currentline[] = "hello everyone, I am counting how many words this sentence contains in totally!";
-
-// void createMovie(char* currentline) {
-//     struct movies abc;
-//     char* tokptr = NULL;
-//     char* token = strtok_r(currentline, " ", &tokptr);
-
-//     while (token != NULL) {
-//         printf("token is: %s\n", token);
-//         printf("tokptr is: %s\n", tokptr);
-//         token = strtok_r(NULL, " ", &tokptr);
+// int main (void) {
+//     FILE *fptr = fopen("movies_sample_1.csv", "r");
+//     if (fptr == NULL) {
+//         perror("unable to open file!");
+//         exit(1);
 //     }
-//     return;
+
+//     char* line = NULL;
+//     ssize_t* len = 0;
+
+//     getline(&line, &len, fptr);
+//     while (getline(&line, &len, fptr) != -1) {
+//         fputs(line, stdout);
+//         fputs("|*\n", stdout);
+//     }
+//     return 0;
 // }
