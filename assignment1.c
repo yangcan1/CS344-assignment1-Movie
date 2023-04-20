@@ -3,6 +3,14 @@
 #include <string.h>
 #include<fcntl.h>
 
+
+struct movies;
+struct movies *createMovies(char* currline);
+struct movies* processFile(char* filename);
+void printmovie(struct movies* list);
+void printmessg();
+void DoIt(int choice, struct movies* list);
+
 struct movies {
     char* title;
     char* year;
@@ -87,13 +95,16 @@ void printmovie(struct movies* list) {
     }
     printf("Processed file movies_sample_1.csv and parsed data for %d movies\n", num);
 }
+
 void printmessg() {
     printf("\n\n1. Show movies released in the specified year\n2. Show highest rated movie for each year\n3. Show the title and year of release of all movies in a specific language\n4. Exit from the program\n\nEnter a choice from 1 to 4: ");
 }
 
-void DoIt(int choice, struct movies* list) {
+void DoIt(int choice, struct movies* list) { 
+    // Main funciton here, execute different functions based on passed in argument "choice"
     int year, button = 0;
     if (choice == 1) {
+        // first option: store and parse year, and print result
         printf("Enter the year for which you want to see movies: ");
         scanf("%d", &year);
         while (list != NULL) {
@@ -107,13 +118,14 @@ void DoIt(int choice, struct movies* list) {
             printf("No data about movies released in the year %d\n", year);
         }
         
-    } else if (choice == 2) { // Create an array of index 0 - 121, the content is the rate.
+    } else if (choice == 2) { 
+        // Create two arrays of index 0 - 121, the content is the rate, and title seperatly.
         float arr[122] = {-1};
-        char* titleName[122];
-        while (list != NULL) {
+        char* titleName[122] = {0};
+        while (list != NULL) { 
             if (atof(list->rate) >= arr[atoi(list->year) - 1900]) {
                 arr[atoi(list->year) - 1900] = atof(list->rate);
-                titleName[atoi(list->year)] = list->title;
+                titleName[atoi(list->year) - 1900] = list->title;
             }
             list = list->next;
         }
@@ -122,6 +134,38 @@ void DoIt(int choice, struct movies* list) {
                 printf("%d %.1f %s\n", (1900 + i), arr[i], titleName[i]);
             }
         }
+    } else if (choice == 3) {
+        // Third option here: 
+        char movieName[20] = {0}; 
+        char* token = NULL;
+        int button = 0;
+        char* titleArr[122] = {NULL};
+        printf("Enter the language for which you want to see movies: ");
+        scanf("%s", movieName);
+
+        while (list != NULL) {
+            token = strtok(list->languages, "[];");
+            while (token != NULL) {
+                if (strcmp(token, movieName) == 0) {
+                    button = 1;
+                    titleArr[atoi(list->year) - 1900] = list->title;
+                }
+                token = strtok(NULL, "[];");
+            }
+            list = list->next;
+        }
+
+        if (button == 0) {
+            printf("No data about movies released in %s", movieName);
+            return;
+        }
+        
+        for (int i = 0; i < 122; i++) {
+            if (titleArr[i] != NULL) {
+                printf("%d %s\n", (1900+i), titleArr[i]);
+            }
+        }
+        
     }
 }
 
@@ -146,5 +190,3 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
-
-
