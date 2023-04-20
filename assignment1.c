@@ -7,7 +7,7 @@
 struct movies;
 struct movies *createMovies(char* currline);
 struct movies* processFile(char* filename);
-void printmovie(struct movies* list);
+void parseMovies(struct movies* list);
 void printmessg();
 void DoIt(int choice, struct movies* list);
 
@@ -87,7 +87,7 @@ struct movies* processFile(char* filename) {
     return head;
 }
 
-void printmovie(struct movies* list) {
+void parseMovies(struct movies* list) {
     int num = 0;
     while (list != NULL) {
         num++;
@@ -122,6 +122,7 @@ void DoIt(int choice, struct movies* list) {
         // Create two arrays of index 0 - 121, the content is the rate, and title seperatly.
         float arr[122] = {-1};
         char* titleName[122] = {0};
+
         while (list != NULL) { 
             if (atof(list->rate) >= arr[atoi(list->year) - 1900]) {
                 arr[atoi(list->year) - 1900] = atof(list->rate);
@@ -129,13 +130,13 @@ void DoIt(int choice, struct movies* list) {
             }
             list = list->next;
         }
+
         for (int i = 0; i < 122; i++) {
             if (arr[i] > 0) {
                 printf("%d %.1f %s\n", (1900 + i), arr[i], titleName[i]);
             }
         }
     } else if (choice == 3) {
-        // Third option here: 
         char movieName[20] = {0}; 
         char* token = NULL;
         int button = 0;
@@ -144,6 +145,7 @@ void DoIt(int choice, struct movies* list) {
         scanf("%s", movieName);
 
         while (list != NULL) {
+            // keep strtoking the languages to see if it matches with movieName that user wants.
             token = strtok(list->languages, "[];");
             while (token != NULL) {
                 if (strcmp(token, movieName) == 0) {
@@ -156,11 +158,13 @@ void DoIt(int choice, struct movies* list) {
         }
 
         if (button == 0) {
+            // button = 0 if no it never matches.
             printf("No data about movies released in %s", movieName);
             return;
         }
         
         for (int i = 0; i < 122; i++) {
+            // print year and title
             if (titleArr[i] != NULL) {
                 printf("%d %s\n", (1900+i), titleArr[i]);
             }
@@ -175,7 +179,7 @@ int main(int argc, char *argv[]) {
         printf("Provide the name of the file!\n");
     }
     struct movies *list = processFile(argv[1]);
-    printmovie(list);
+    parseMovies(list);
     printmessg();
     scanf("%d", &choice);
     while (choice < 1 || choice > 4) {
@@ -187,6 +191,5 @@ int main(int argc, char *argv[]) {
         printmessg();
         scanf("%d", &choice);
     }
-
     return 0;
 }
