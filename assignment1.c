@@ -137,6 +137,7 @@ void DoIt(int choice, struct movies* list) {
             }
         }
     } else if (choice == 3) {
+        
         char movieName[20] = {0}; 
         char* token = NULL;
         int button = 0;
